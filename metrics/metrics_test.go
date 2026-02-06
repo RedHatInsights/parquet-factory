@@ -17,9 +17,9 @@ package metrics_test
 import (
 	"testing"
 
+	"github.com/RedHatInsights/parquet-factory/metrics"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/stretchr/testify/assert"
-	"github.com/RedHatInsights/parquet-factory/metrics"
 )
 
 var testEnv = "testEnv"

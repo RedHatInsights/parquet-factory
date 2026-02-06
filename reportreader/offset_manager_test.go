@@ -18,9 +18,9 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/RedHatInsights/parquet-factory/metrics"
 	"github.com/RedHatInsights/parquet-factory/reportreader"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestOffsetCommit(t *testing.T) {

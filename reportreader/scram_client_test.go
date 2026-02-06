@@ -17,8 +17,8 @@ package reportreader_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/RedHatInsights/parquet-factory/reportreader"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSCRAMClientBegin(t *testing.T) {

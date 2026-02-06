@@ -20,9 +20,9 @@ import (
 	"time"
 
 	"github.com/IBM/sarama"
-	"github.com/rs/zerolog"
 	"github.com/RedHatInsights/parquet-factory/conf"
 	"github.com/RedHatInsights/parquet-factory/reportaggregators/rulereportaggregator"
+	"github.com/rs/zerolog"
 )
 
 const (
