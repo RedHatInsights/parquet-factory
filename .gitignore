@@ -1,0 +1,16 @@
+./parquet-factory
+config_my.toml
+coverage.out
+.vscode/launch.json
+
+# Locally generated files from Jekyll
+docs/Gemfile.lock
+docs/_site/
+docs/.sass-cache
+docs/.jekyll-cache
+docks/.jekyll-metadata
+docs/vendor
+docs/sources.md
+
+s3writer/mock/s3writer.go
+shellcheck-stable/

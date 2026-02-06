@@ -1,0 +1,9 @@
+msg,topic,partition,offset,timestamp
+beginning,ccx-prod-insights-operator-archive-rules-results,0,12127596,1615803324678
+end,ccx-prod-insights-operator-archive-rules-results,0,12257609,1615992599969
+beginning,ccx-prod-insights-operator-archive-rules-results,1,12127024,1615805532760
+end,ccx-prod-insights-operator-archive-rules-results,1,12256233,1615992606358
+beginning,ccx-prod-insights-operator-archive-features,0,12123332,1615816295824
+end,ccx-prod-insights-operator-archive-features,0,12244529,1615992611470
+beginning,ccx-prod-insights-operator-archive-features,1,12115195,1615814501634
+end,ccx-prod-insights-operator-archive-features,1,12237793,1615992615158

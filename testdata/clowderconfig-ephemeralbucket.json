@@ -1,0 +1,37 @@
+{
+    "logging": {
+        "type": "log"
+    },
+    "metricsPath": "/metrics",
+    "metricsPort": 9000,
+    "kafka": {
+        "brokers": [
+            {
+                "hostname": "clowderkafkabroker",
+                "port": 9092
+            }
+        ],
+        "topics": [
+            {
+                "name": "translated_rules_topic",
+                "requestedName": "incoming_rules_topic"
+            }
+        ]
+    },
+    "objectStore": {
+        "accessKey": "testAccessKey",
+        "secretKey": "testSecretKey",
+        "hostname": "clowders3server",
+        "port": 9000,
+        "buckets": [
+            {
+                "accessKey": "testAccessKey",
+                "secretKey": "testSecretKey",
+                "endpoint": "http://clowders3server",
+                "requestedName": "ceph",
+                "name": "translated_ceph"
+            }
+        ],
+        "tls": false
+    }
+}

@@ -1,0 +1,35 @@
+time_shift = 30  # minutes
+
+[kafka_rules]
+address = "kafka:9092"
+topic = "incoming_rules_topic"
+group_id = "parquet-factory-group"
+cert_path = "somewhere"
+max_consumed_records = 5000
+max_retries = 3
+consumer_timeout = 240  # 4 minutes
+
+[logging]
+debug = true
+logging_to_cloudwatch_enabled = false
+logging_to_sentry_enabled = false
+logging_to_kafka_enabled = false
+
+[sentry]
+dsn = "put_your_url_here"
+environment = "put_your_env_here"
+
+[s3]
+endpoint = "localhost:9000"
+bucket = "ceph"
+prefix = "fleet_aggregations"
+region = "us-east-1"
+access_key = "minio"
+secret_key = "minio123"
+use_ssl = false
+
+[metrics]
+job_name="job_name"
+gateway_url="gateway_url"
+gateway_auth_token="gateway_auth_token"
+time_between_push = 60

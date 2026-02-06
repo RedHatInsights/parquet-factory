@@ -1,0 +1,217 @@
+---
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: parquet-factory
+objects:
+  
+- apiVersion: cloud.redhat.com/v1alpha1
+  kind: ClowdApp
+  metadata:
+    name: parquet-factory
+  spec:
+    envName: ${ENV_NAME}
+    testing:
+      iqePlugin: ccx
+    objectStore:
+      - ${TARGET_S3_BUCKET}
+
+    kafkaTopics:
+      - replicas: 3
+        partitions: 4
+        topicName: ${KAFKA_RULES_TOPIC}
+
+    jobs:
+      - name: instance
+        schedule: ${JOB_SCHEDULE}
+        restartPolicy: Never
+        concurrencyPolicy: ${CONCURRENCY_POLICY}
+        # In PROD 1 cronjob takes around 45 min. Deadline set to 60 mins.
+        activeDeadlineSeconds: ${{JOB_DEADLINE}}
+        suspend: ${{SUSPEND_JOB}}
+        successfulJobsHistoryLimit: 3
+        failedJobsHistoryLimit: 3
+        podSpec:
+          image: ${IMAGE}:${IMAGE_TAG}
+          resources:
+            limits:
+              cpu: ${CPU_LIMIT}
+              memory: ${MEMORY_LIMIT}
+            requests:
+              cpu: ${CPU_REQUEST}
+              memory: ${MEMORY_REQUEST}
+
+          env:
+            - name: PARQUET_FACTORY__TIME_SHIFT
+              value: ${TIME_SHIFT}
+            - name: PARQUET_FACTORY__LOGGING__LOGGING_TO_CLOUD_WATCH_ENABLED
+              value: ${LOGGING_TO_CLOUD_WATCH_ENABLED}
+            - name: PARQUET_FACTORY__CLOUDWATCH__DEBUG
+              value: ${CLOUDWATCH_DEBUG}
+            - name: PARQUET_FACTORY__CLOUDWATCH__CREATE_STREAM_IF_NOT_EXISTS
+              value: ${CREATE_STREAM_IF_NOT_EXISTS}
+            - name: PARQUET_FACTORY__CLOUDWATCH__AWS_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: cloudwatch
+                  key: aws_region
+                  optional: true
+            - name: PARQUET_FACTORY__CLOUDWATCH__LOG_GROUP
+              valueFrom:
+                secretKeyRef:
+                  name: cloudwatch
+                  key: log_group_name
+                  optional: true
+            - name: PARQUET_FACTORY__CLOUDWATCH__AWS_ACCESS_ID
+              valueFrom:
+                secretKeyRef:
+                  name: cloudwatch
+                  key: aws_access_key_id
+                  optional: true
+            - name: PARQUET_FACTORY__CLOUDWATCH__AWS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cloudwatch
+                  key: aws_secret_access_key
+                  optional: true
+
+            - name: PARQUET_FACTORY__LOGGING__LOGGING_TO_SENTRY_ENABLED
+              value: ${SENTRY_ENABLED}
+            - name: PARQUET_FACTORY__SENTRY__DSN
+              valueFrom:
+                secretKeyRef:
+                  key: dsn
+                  name: parquet-factory-dsn
+                  optional: true
+            - name: PARQUET_FACTORY__SENTRY__ENVIRONMENT
+              value: ${ENV_NAME}
+
+            - name: PARQUET_FACTORY__KAFKA_RULES__ADDRESS
+              value: ${KAFKA_URL}
+            - name: PARQUET_FACTORY__KAFKA_RULES__SECURITY_PROTOCOL
+              value: ${KAFKA_SECURITY_PROTOCOL}
+            - name: PARQUET_FACTORY__KAFKA_RULES__SASL_MECHANISM
+              value: ${KAFKA_SASL_MECHANISM}
+            - name: PARQUET_FACTORY__KAFKA_RULES__TOPIC
+              value: ${KAFKA_RULES_TOPIC}
+            - name: PARQUET_FACTORY__KAFKA_RULES__GROUP_ID
+              value: ${KAFKA_GROUP_ID}
+            - name: PARQUET_FACTORY__KAFKA_RULES__CONSUMER_TIMEOUT
+              value: ${KAFKA_CONSUMER_TIMEOUT}
+
+            - name: PARQUET_FACTORY__S3__ENDPOINT
+              value: ${S3_URL}
+            - name: PARQUET_FACTORY__S3__BUCKET
+              value: ${TARGET_S3_BUCKET}
+            - name: PARQUET_FACTORY__S3__PREFIX
+              value: ${TARGET_S3_PREFIX}
+            - name: PARQUET_FACTORY__S3__USE_SSL
+              value: ${TARGET_S3_USE_SSL}
+            - name: PARQUET_FACTORY__S3__ACCESS_KEY
+              value: "${TARGET_S3_ACCESS_KEY}"
+            - name: PARQUET_FACTORY__S3__SECRET_KEY
+              value: "${TARGET_S3_SECRET_KEY}"
+
+            - name: PARQUET_FACTORY__METRICS__JOB_NAME
+              value: ${METRICS_JOB_NAME}
+            - name: PARQUET_FACTORY__METRICS__GATEWAY_URL
+              valueFrom:
+                secretKeyRef:
+                  key: server
+                  name: push-gateway-basic-auth
+                  optional: true
+            - name: PARQUET_FACTORY__METRICS__GATEWAY_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: credentials_b64
+                  name: push-gateway-basic-auth
+                  optional: true
+            - name: PARQUET_FACTORY__METRICS__TIME_BETWEEN_PUSH
+              value: ${METRICS_TIME_BETWEEN_PUSH}
+
+          command: ["./parquet-factory"]
+
+parameters:
+- description: Image name
+  name: IMAGE
+  value: quay.io/redhat-services-prod/obsint-processing-tenant/parquet-factory/parquet-factory
+- description: Image tag
+  name: IMAGE_TAG
+  required: true
+- description: Env Name
+  name: ENV_NAME
+  required: true
+- name: CPU_LIMIT
+  value: 500m
+- description: memory limit of service
+  name: MEMORY_LIMIT
+  value: 512Mi
+- name: CPU_REQUEST
+  value: 100m
+- description: memory request of service
+  name: MEMORY_REQUEST
+  value: 256Mi
+- description: Should the cron job be disabled?
+  name: SUSPEND_JOB
+  value: 'false'
+- description: Number of seconds before job is terminated
+  name: JOB_DEADLINE
+  value: "3600"
+- description: When the cronjob runs
+  name: JOB_SCHEDULE
+  value: "*/10 * * * *"
+- description: Enables or disables Sentry error tracking.
+  name: SENTRY_ENABLED
+  value: "false"
+- name: CONCURRENCY_POLICY
+  value: Forbid
+- name: KAFKA_RULES_TOPIC
+  required: true
+  value: ccx.insights.rules.results
+- name: KAFKA_GROUP_ID
+  required: true
+  value: ccx_parquet_factory_group
+- name: KAFKA_MAX_CONSUMED_SECONDS
+  value: "5000"
+- name: KAFKA_SECURITY_PROTOCOL
+  value: ""
+- name: KAFKA_SASL_MECHANISM
+  value: "PLAIN"
+- name: KAFKA_URL
+  required: true
+  value: mq-kafka:29092
+- name: KAFKA_TIMEOUT
+  value: 300s
+- name: KAFKA_CONSUMER_TIMEOUT
+  description: Timeout before stopping consuming Kafka messages (in seconds)
+  value: "460"  # 8 minutes
+- name: S3_URL
+  value: minio:9000
+- name: TARGET_S3_BUCKET
+  value: ccx-bucket
+- name: TARGET_S3_PREFIX
+  value: fleet_aggregations
+- name: TARGET_S3_USE_SSL
+  value: "false"
+- name: TARGET_S3_ACCESS_KEY
+  value: access-key
+- name: TARGET_S3_SECRET_KEY
+  value: secret
+- name: METRICS_JOB_NAME
+  value: parquet-factory
+- name: METRICS_GATEWAY_URL
+  value: "http://prometheus-gateway:8080"
+- name: METRICS_TIME_BETWEEN_PUSH
+  value: "60"
+- description: Enables CloudWatch debug logging.
+  name: CLOUDWATCH_DEBUG
+  value: "false"
+- description: Enables logging to CloudWatch. 
+  name: LOGGING_TO_CLOUD_WATCH_ENABLED
+  value: "true"
+- description: Creates stream if it does not exist. 
+  name: CREATE_STREAM_IF_NOT_EXISTS
+  value: "true"
+- description: Time shift for records processing
+  name: TIME_SHIFT
+  value: "0"
