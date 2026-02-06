@@ -19,11 +19,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/rs/zerolog/log"
 	"github.com/RedHatInsights/parquet-factory/metrics"
 	"github.com/RedHatInsights/parquet-factory/reportaggregators"
 	"github.com/RedHatInsights/parquet-factory/s3writer"
 	"github.com/RedHatInsights/parquet-factory/utils"
+	"github.com/rs/zerolog/log"
 )
 
 const archivesTableName = "archives"

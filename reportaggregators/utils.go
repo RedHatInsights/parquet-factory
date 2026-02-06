@@ -19,8 +19,8 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/rs/zerolog/log"
 	"github.com/RedHatInsights/parquet-factory/metrics"
+	"github.com/rs/zerolog/log"
 )
 
 var timestampRe = regexp.MustCompile(`archives/compressed/[0-9a-f]+/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/(20[0-9]{2})([0-1][0-9])/(0[1-9]|[12]\d|3[01])/([0-2][0-9])([0-6][0-9])([0-6][0-9])\.tar\.gz$`)

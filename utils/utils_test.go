@@ -23,8 +23,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/RedHatInsights/parquet-factory/utils"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGetHourOnly(t *testing.T) {

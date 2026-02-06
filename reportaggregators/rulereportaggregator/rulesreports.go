@@ -19,10 +19,10 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/rs/zerolog/log"
 	"github.com/RedHatInsights/parquet-factory/metrics"
 	"github.com/RedHatInsights/parquet-factory/reportaggregators"
 	"github.com/RedHatInsights/parquet-factory/s3writer"
+	"github.com/rs/zerolog/log"
 )
 
 // RuleHit represents each RuleHit report received

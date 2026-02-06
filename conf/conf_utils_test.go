@@ -17,8 +17,8 @@ package conf_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/RedHatInsights/parquet-factory/conf"
+	"github.com/stretchr/testify/assert"
 )
 
 func mustLoadConfiguration(t *testing.T, path string) {

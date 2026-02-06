@@ -20,11 +20,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	gomock "github.com/golang/mock/gomock"
 	"github.com/RedHatInsights/parquet-factory/metrics"
 	"github.com/RedHatInsights/parquet-factory/reportaggregators/rulereportaggregator"
 	"github.com/RedHatInsights/parquet-factory/s3writer/mock"
 	"github.com/RedHatInsights/parquet-factory/testdata"
+	gomock "github.com/golang/mock/gomock"
 )
 
 func TestNew(t *testing.T) {

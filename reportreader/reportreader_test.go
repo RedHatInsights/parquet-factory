@@ -24,9 +24,9 @@ import (
 	"github.com/RedHatInsights/parquet-factory/reportaggregators/rulereportaggregator"
 
 	"github.com/IBM/sarama"
-	"github.com/stretchr/testify/assert"
 	"github.com/RedHatInsights/parquet-factory/conf"
 	"github.com/RedHatInsights/parquet-factory/reportreader"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNew(t *testing.T) {

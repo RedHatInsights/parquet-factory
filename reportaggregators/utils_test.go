@@ -18,8 +18,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/RedHatInsights/parquet-factory/reportaggregators"
+	"github.com/stretchr/testify/assert"
 )
 
 // TestExtractCollectedDate checks several cases of ExtractCollectDate
