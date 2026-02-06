@@ -39,7 +39,7 @@ abcgo: ## Run ABC metrics checker
 	@echo "Run ABC metrics checker"
 	./abcgo.sh ${VERBOSE}
 
-unit_tests: clean build gen_mocks  ## Run the unit tests
+unit_tests: clean gen_mocks build  ## Run the unit tests
 	@echo "Running unit tests"
 	./unit-tests.sh
 
