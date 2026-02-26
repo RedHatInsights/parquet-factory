@@ -1,17 +1,13 @@
----
-layout: page
-title: Configuration
-nav_order: 2
----
-
 # Configuration
-{: .no_toc }
 
-## Table of contents
-{: .no_toc .text-delta }
+## Table of Contents
 
-1. TOC
-{:toc}
+- [Rule hits consumer configuration](#rule-hits-consumer-configuration)
+- [Features extraction consumer configuration](#features-extraction-consumer-configuration)
+- [S3 configuration](#s3-configuration)
+- [Logging configuration](#logging-configuration)
+  - [General logging configuration](#general-logging-configuration)
+  - [Logging to different cloud services](#logging-to-different-cloud-services)
 
 Parquet Factory is configured using a **toml** file. By default, it will load
 the `config.toml` file in the working directory, but any other file can be used

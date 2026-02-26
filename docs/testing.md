@@ -1,8 +1,4 @@
----
-layout: page
-title: Testing
-nav_order: 5
----
+# Testing
 
 ## Testing of parquet-factory
 

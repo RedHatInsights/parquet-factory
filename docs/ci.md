@@ -1,9 +1,3 @@
----
-layout: page
-title: CI
-nav_order: 3
----
-
 # Continuous Integration
 
 The Parquet Factory repository is configured to use the GitLab CI pipelines in
