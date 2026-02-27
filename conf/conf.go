@@ -40,7 +40,7 @@ type KafkaConfig struct {
 	CertPath         string   `mapstructure:"cert_path" toml:"cert_path"`
 	SaslMechanism    string   `mapstructure:"sasl_mechanism" toml:"sasl_mechanism"`
 	ClientID         string   `mapstructure:"client_id" toml:"client_id"`
-	ClientSecret     string   `mapstructure:"client_secret" toml:"client_secret"`
+	ClientSecret     string   `mapstructure:"client_secret" toml:"client_secret"` // #nosec G117 -- Configuration field, not a hardcoded secret
 	Topic            string   `mapstructure:"topic" toml:"topic"`
 	GroupID          string   `mapstructure:"group_id" toml:"group_id"`
 	MaxRecords       int      `mapstructure:"max_consumed_records" toml:"max_consumed_records"`
@@ -54,8 +54,8 @@ type S3Config struct {
 	Bucket         string `mapstructure:"bucket" toml:"bucket"`
 	FilePathPrefix string `mapstructure:"prefix" toml:"prefix"`
 	Region         string `mapstructure:"region" toml:"region"`
-	AccessKey      string `mapstructure:"access_key" toml:"access_key"`
-	SecretKey      string `mapstructure:"secret_key" toml:"secret_key"`
+	AccessKey      string `mapstructure:"access_key" toml:"access_key"` // #nosec G117 -- Configuration field, not a hardcoded secret
+	SecretKey      string `mapstructure:"secret_key" toml:"secret_key"` // #nosec G117 -- Configuration field, not a hardcoded secret
 	UseSSL         bool   `mapstructure:"use_ssl" toml:"use_ssl"`
 }
 
