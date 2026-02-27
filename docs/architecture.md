@@ -1,9 +1,3 @@
----
-layout: page
-title: Architecture
-nav_order: 1
----
-
 # Architecture
 
 This program is intended to be run as a

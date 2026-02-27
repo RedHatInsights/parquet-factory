@@ -1,9 +1,4 @@
----
-layout: page
-title: Metrics
-nav_order: 6
----
-
+# Metrics
 
 ## Metrics
 
@@ -54,4 +49,4 @@ So, the metrics are:
 
 There will be also an `error_count` metric.
 
-<script src="{{ "/resources/mermaid.min.js" | relative_url }}"></script>
+> **Note**: The Mermaid diagram above may not render on GitHub. View the [architecture diagram](resources/parquet-factory_hl.png) for a visual overview.

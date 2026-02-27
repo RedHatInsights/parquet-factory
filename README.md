@@ -4,8 +4,18 @@ This program intends to aggregate a number of **rule-hits** reports from a Kafka
 
 Parquet Factory is able to upload the resulting files to an S3 server to long term storage, if configured.
 
-If you need to explore further in the history of this repo,
-check the one in the internal GitHub instance under the `ccx` group.
+If you need to explore further in the history of this repo, check the one in the internal GitHub instance under the `ccx` group.
+
+## Documentation
+
+For detailed documentation, see the [docs](docs/) directory:
+
+- [Architecture](docs/architecture.md)
+- [Configuration](docs/config.md)
+- [CI/CD](docs/ci.md)
+- [Deployment](docs/deployment.md)
+- [Testing](docs/testing.md)
+- [Metrics](docs/metrics.md)
 
 # Incoming reports
 
