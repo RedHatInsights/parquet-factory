@@ -88,6 +88,7 @@ func newS3FileWriterWithS3Writer(ctx context.Context, s3Writer *S3Writer, path s
 			input.ACL = types.ObjectCannedACL(ACL)
 		}
 	}
+	uploaderOptions := []func(*manager.Uploader){} //nolint:staticcheck
 	return sourceS3.NewS3FileWriterWithClient(
-		ctx, s3Writer.S3Client, s3Writer.Bucket, path, []func(*manager.Uploader){}, putObjectOptions)
+		ctx, s3Writer.S3Client, s3Writer.Bucket, path, uploaderOptions, putObjectOptions)
 }
