@@ -12,5 +12,4 @@ docks/.jekyll-metadata
 docs/vendor
 docs/sources.md
 
-s3writer/mock/s3writer.go
 shellcheck-stable/

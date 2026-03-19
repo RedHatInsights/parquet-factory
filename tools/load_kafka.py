@@ -18,9 +18,9 @@ This script takes a file with a set of lines in the form `timestamp partition-of
 orders the lines by the timestamp and publish the records with the same intervals, taking first
 message as base timestamp.
 """
+
 import argparse
 import asyncio
-import datetime
 import time
 
 import aiokafka
@@ -30,21 +30,26 @@ async def main():
     """Handle the execution of the script."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "records_file", help="Path to a file containing the records to be injected",
+        "records_file",
+        help="Path to a file containing the records to be injected",
     )
     parser.add_argument(
-        "kafka_server", help="Kafka server to inject messages",
+        "kafka_server",
+        help="Kafka server to inject messages",
     )
     parser.add_argument(
-        "topic", help="Kafka topic to inject the messages",
+        "topic",
+        help="Kafka topic to inject the messages",
     )
     parser.add_argument(
-        "--update_timestamp", action="store_true",
-        help="Moves the timestamp forward to avoid the retention policy"
+        "--update_timestamp",
+        action="store_true",
+        help="Moves the timestamp forward to avoid the retention policy",
     )
     parser.add_argument(
-        "--ignore-partition", action="store_true",
-        help="Ignore the partition field in the input file and publish to any available partition"
+        "--ignore-partition",
+        action="store_true",
+        help="Ignore the partition field in the input file and publish to any available partition",
     )
 
     args = parser.parse_args()
@@ -60,8 +65,10 @@ async def main():
 
     shift = 0
     if args.update_timestamp:
-        shift = (time.time() * 1000) - 601200000. - int(records[0][0])
-        print(f"Original ts: {records[0][0]}\nNew ts: {int(records[0][0]) + shift}\nShift: {shift}")
+        shift = (time.time() * 1000) - 601200000.0 - int(records[0][0])
+        print(
+            f"Original ts: {records[0][0]}\nNew ts: {int(records[0][0]) + shift}\nShift: {shift}"
+        )
 
     producer = aiokafka.AIOKafkaProducer(bootstrap_servers=[args.kafka_server])
     await producer.start()
@@ -70,14 +77,14 @@ async def main():
     try:
         for record in records:
             timestamp = int(record[0]) + shift
-            offset = int(record[1])
-            partition= int(record[2]) if not args.ignore_partition else None
+            partition = int(record[2]) if not args.ignore_partition else None
             payload = record[3][:-1].encode()  # Remove trailing \n
-            await producer.send(args.topic, value=payload, timestamp_ms=timestamp, partition=partition)
+            await producer.send(
+                args.topic, value=payload, timestamp_ms=timestamp, partition=partition
+            )
 
     finally:
         await producer.stop()
-
 
 
 if __name__ == "__main__":

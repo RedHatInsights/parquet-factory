@@ -332,7 +332,7 @@ var (
 						"risk": "AlibabaStorageDriverDemo"
 					}
 				]
-            }			
+            }
 		]
 	}
 	`)
@@ -816,7 +816,7 @@ var (
 				"data": [
 					{
 						"layers": "not a list"
-					}				
+					}
 				]
             }
 		]
@@ -996,7 +996,7 @@ var (
 				"data": [
 					{
 						"cluster_id": true
-					}				
+					}
 				]
             }
 		]
@@ -1017,7 +1017,7 @@ var (
 				"data": [
 					{
 						"cluster_id": true
-					}				
+					}
 				]
             }
 		]
@@ -1038,7 +1038,7 @@ var (
 				"data": [
 					{
 						"cluster_id": true
-					}				
+					}
 				]
             }
 		]
