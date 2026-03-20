@@ -1,6 +1,7 @@
 SHELL := /bin/bash
 
-.PHONY: default clean build fmt lint lint-ci shellcheck abcgo style run test cover integration_tests license before_commit help godoc install_docgo install_addlicense gen_mocks install_mockgen install_golangci-lint
+.PHONY: default clean build lint shellcheck abcgo unit_tests cover style run integration_tests \
+	 license test before_commit help install_addlicense gen_mocks install_mockgen
 
 SOURCES:=$(shell find . -name '*.go')
 BINARY:=parquet-factory
@@ -17,27 +18,14 @@ build: ${BINARY} ## Keep this rule for compatibility
 ${BINARY}: ${SOURCES}
 	./build.sh
 
-install_golangci-lint:
-	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
-
-fmt: install_golangci-lint ## Run go formatting
-	@echo "Running go formatting"
-	golangci-lint fmt
-
-lint: install_golangci-lint gen_mocks ## Run go liting
-	@echo "Running go linting"
-	golangci-lint run --fix
-
-lint-ci: install_golangci-lint gen_mocks ## Run go liting without fixing
-	@echo "Running go linting"
-	golangci-lint run --timeout=3m
+lint: gen_mocks ## Run go liting
+	pre-commit run --all-files golangci-lint-full
 
 shellcheck: ## Run shellcheck
-	./shellcheck.sh
+	pre-commit run --all-files shellcheck
 
 abcgo: ## Run ABC metrics checker
-	@echo "Run ABC metrics checker"
-	./abcgo.sh ${VERBOSE}
+	pre-commit run --all-files abcgo
 
 unit_tests: clean gen_mocks build  ## Run the unit tests
 	@echo "Running unit tests"
@@ -89,4 +77,3 @@ install_mockgen:
 s3writer/mock/s3writer.go: s3writer/types.go
 	mkdir -p `dirname $@`
 	mockgen -source $< -package mock > $@
-

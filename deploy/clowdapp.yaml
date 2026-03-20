@@ -4,7 +4,7 @@ kind: Template
 metadata:
   name: parquet-factory
 objects:
-  
+
 - apiVersion: cloud.redhat.com/v1alpha1
   kind: ClowdApp
   metadata:
@@ -206,10 +206,10 @@ parameters:
 - description: Enables CloudWatch debug logging.
   name: CLOUDWATCH_DEBUG
   value: "false"
-- description: Enables logging to CloudWatch. 
+- description: Enables logging to CloudWatch.
   name: LOGGING_TO_CLOUD_WATCH_ENABLED
   value: "true"
-- description: Creates stream if it does not exist. 
+- description: Creates stream if it does not exist.
   name: CREATE_STREAM_IF_NOT_EXISTS
   value: "true"
 - description: Time shift for records processing

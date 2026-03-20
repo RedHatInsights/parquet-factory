@@ -1,0 +1,23 @@
+name: Linters
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  lint:
+    # Job copied from RedHatInsights/processing-tools/.github/workflows/linters.yaml
+    # parquet-factory needs an additional step to build the mocks before to running the linters
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+      - name: build mocks
+        run: make gen_mocks
+      - uses: pre-commit/action@v3.0.1

@@ -14,10 +14,11 @@
 # limitations under the License.
 
 
-PODNAMES=`oc get pods | awk '$1 ~ /parquet-factory/ { print $1 }'`
+PODNAMES=$(oc get pods | awk '$1 ~ /parquet-factory/ { print $1 }')
 
+# shellcheck disable=SC2181
 if [[ $? != 0 ]]; then
-    echo "Error retrieving the parquet-factory pods from cluster. Did you performed `oc login`?"
+    echo "Error retrieving the parquet-factory pods from cluster. Did you performed 'oc login'?"
     exit 1
 else
     echo "Parquet Factory pods list retrieved"
@@ -28,10 +29,11 @@ OUTPUT="pods_timing.csv"
 echo "pod_name;exit_status;start_time;end_time;duration;num_messages" > ${OUTPUT}
 
 for pod in ${PODNAMES}; do
+    # shellcheck disable=SC2129
     echo -n "$pod;" >> ${OUTPUT}
     oc describe pod ${pod} | awk -v ORS=";" '/Started:|Finished:/ { $1=""; print } /Exit\sCode:/ { print $NF}' >> ${OUTPUT}
     echo -n ";" >> ${OUTPUT}
-    oc logs ${pod} | grep "Received message" | grep -v "count=" | wc -l >> ${OUTPUT}
+    oc logs ${pod} | grep "Received message" | grep -vc "count=" >> ${OUTPUT}
     # echo "" >> ${OUTPUT}
 done
 

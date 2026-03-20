@@ -17,5 +17,3 @@ order to perform several checks and validations for every pushed commit:
 All the checks above are executed for every commit and merge request. The
 history of the pipelines execution can be found
 [here](https://github.com/RedHatInsights/parquet-factory/-/pipelines).
-
-
