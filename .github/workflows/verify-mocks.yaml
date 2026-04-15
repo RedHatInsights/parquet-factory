@@ -1,0 +1,28 @@
+name: Verify generated mocks
+
+on:
+  pull_request:
+
+jobs:
+  verify-mocks:
+    name: gen_mocks is up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Regenerate mocks
+        run: make gen_mocks
+
+      - name: Fail if generated files differ from repository
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Mock output does not match committed files. Run \`make gen_mocks\` locally and commit the result."
+            git status
+            git diff
+            exit 1
+          fi
