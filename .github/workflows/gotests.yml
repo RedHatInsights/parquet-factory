@@ -23,3 +23,5 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unit-tests
+          fail_ci_if_error: false
