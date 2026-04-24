@@ -3,7 +3,7 @@ module github.com/RedHatInsights/parquet-factory
 go 1.25.0
 
 require (
-	github.com/IBM/sarama v1.47.0
+	github.com/IBM/sarama v1.48.0
 	github.com/RedHatInsights/insights-operator-utils v1.28.0
 	github.com/aws/aws-sdk-go-v2 v1.41.6
 	github.com/aws/aws-sdk-go-v2/config v1.32.16
@@ -38,7 +38,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sso v1.30.16 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.35.20 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.42.0 // indirect
-	github.com/aws/smithy-go v1.25.0 // indirect
+	github.com/aws/smithy-go v1.25.1 // indirect
 	github.com/getsentry/sentry-go/zerolog v0.46.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.5.0 // indirect
 	github.com/jcmturner/aescts/v2 v2.0.0 // indirect
