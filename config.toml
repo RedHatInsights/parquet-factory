@@ -40,7 +40,7 @@ environment = "put_your_env_here"
 
 [cloudwatch]
 debug = false
-stream_name = "stream_name"
+stream_name = ""
 create_stream_if_not_exists = true
 aws_region = "aws_region"
 log_group = "log_group"
