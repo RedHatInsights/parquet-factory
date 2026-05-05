@@ -19,6 +19,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
+const environmentLabel = "environment"
+
 type envInitializer struct {
 	environment string
 }
@@ -59,7 +61,7 @@ func (envInit envInitializer) getOffsetMarked() (prometheus.Collector, error) {
 	OffsetMarked, err = push.NewGaugeWithError(prometheus.GaugeOpts{
 		Name:        "offset_marked",
 		Help:        "number of messages which offset has been marked",
-		ConstLabels: prometheus.Labels{"environment": envInit.environment},
+		ConstLabels: prometheus.Labels{environmentLabel: envInit.environment},
 	})
 
 	return OffsetMarked, err
@@ -69,7 +71,7 @@ func (envInit envInitializer) getOffsetConsummed() (prometheus.Collector, error)
 	OffsetConsummed, err = push.NewGaugeWithError(prometheus.GaugeOpts{
 		Name:        "offset_consummed",
 		Help:        "number of messages consumed",
-		ConstLabels: prometheus.Labels{"environment": envInit.environment},
+		ConstLabels: prometheus.Labels{environmentLabel: envInit.environment},
 	})
 
 	return OffsetConsummed, err
@@ -79,7 +81,7 @@ func (envInit envInitializer) getOffsetProcessed() (prometheus.Collector, error)
 	OffsetProcessed, err = push.NewGaugeWithError(prometheus.GaugeOpts{
 		Name:        "offset_processed",
 		Help:        "number of messages processed",
-		ConstLabels: prometheus.Labels{"environment": envInit.environment},
+		ConstLabels: prometheus.Labels{environmentLabel: envInit.environment},
 	})
 
 	return OffsetProcessed, err
@@ -89,7 +91,7 @@ func (envInit envInitializer) getFilesGenerated() (prometheus.Collector, error) 
 	FilesGenerated, err = push.NewCounterVecWithError(prometheus.CounterOpts{
 		Name:        "files_generated",
 		Help:        "number of files generated",
-		ConstLabels: prometheus.Labels{"environment": envInit.environment},
+		ConstLabels: prometheus.Labels{environmentLabel: envInit.environment},
 	}, tableLabels)
 
 	return FilesGenerated, err
@@ -99,7 +101,7 @@ func (envInit envInitializer) getInsertedRows() (prometheus.Collector, error) {
 	InsertedRows, err = push.NewCounterVecWithError(prometheus.CounterOpts{
 		Name:        "inserted_rows",
 		Help:        "number of rows written",
-		ConstLabels: prometheus.Labels{"environment": envInit.environment},
+		ConstLabels: prometheus.Labels{environmentLabel: envInit.environment},
 	}, tableLabels)
 
 	return InsertedRows, err
@@ -109,7 +111,7 @@ func (envInit envInitializer) getErrorCount() (prometheus.Collector, error) {
 	ErrorCount, err = push.NewCounterWithError(prometheus.CounterOpts{
 		Name:        "error_count",
 		Help:        "saves the number of errors",
-		ConstLabels: prometheus.Labels{"environment": envInit.environment},
+		ConstLabels: prometheus.Labels{environmentLabel: envInit.environment},
 	})
 
 	return ErrorCount, err
@@ -119,7 +121,7 @@ func (envInit envInitializer) getState() (prometheus.Collector, error) {
 	State, err = push.NewGaugeWithError(prometheus.GaugeOpts{
 		Name:        "state",
 		Help:        "state of the cronjob job",
-		ConstLabels: prometheus.Labels{"environment": envInit.environment},
+		ConstLabels: prometheus.Labels{environmentLabel: envInit.environment},
 	})
 
 	return State, err
