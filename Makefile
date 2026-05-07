@@ -27,9 +27,7 @@ shellcheck: ## Run shellcheck
 abcgo: ## Run ABC metrics checker
 	pre-commit run --all-files abcgo
 
-unit_tests: clean gen_mocks build  ## Run the unit tests
-	@echo "Running unit tests"
-	./unit-tests.sh
+unit_tests: test ## Alias for test
 
 coverage.out: unit_tests ## Run unit tests when coverage.out is not created
 
@@ -48,7 +46,9 @@ integration_tests: ## Run all integration tests
 license: install_addlicense
 	addlicense -c "Red Hat, Inc" -l "apache" -v ./
 
-test: unit_tests integration_tests ## Run unit tests and integration tests
+test: clean gen_mocks build ## Run the unit tests
+	@echo "Running unit tests"
+	./unit-tests.sh
 
 before_commit: style test license ## Checks done before commit
 	./check_coverage.sh
@@ -76,4 +76,4 @@ install_mockgen:
 
 s3writer/mock/s3writer.go: s3writer/types.go
 	mkdir -p `dirname $@`
-	mockgen -source $< -package mock > $@
+	PATH=$(go env GOPATH)/bin:${PATH} mockgen -source $< -package mock > $@
