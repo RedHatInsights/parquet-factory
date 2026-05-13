@@ -3,7 +3,7 @@ module github.com/RedHatInsights/parquet-factory
 go 1.25.0
 
 require (
-	github.com/IBM/sarama v1.48.1
+	github.com/IBM/sarama v1.48.2
 	github.com/RedHatInsights/insights-operator-utils v1.28.0
 	github.com/aws/aws-sdk-go-v2 v1.41.7
 	github.com/aws/aws-sdk-go-v2/config v1.32.17
