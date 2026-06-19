@@ -49,7 +49,7 @@ require (
 	github.com/mattn/go-colorable v0.1.15 // indirect
 	github.com/mattn/go-isatty v0.0.22 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/pelletier/go-toml/v2 v2.3.1 // indirect
+	github.com/pelletier/go-toml/v2 v2.4.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.27 // indirect
 	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
