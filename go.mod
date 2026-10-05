@@ -1,6 +1,6 @@
 module github.com/RedHatInsights/parquet-factory
 
-go 1.25.0
+go 1.26
 
 require (
 	github.com/IBM/sarama v1.60.1
@@ -61,7 +61,7 @@ require (
 
 require (
 	github.com/RedHatInsights/insights-results-types v1.23.5 // indirect
-	github.com/apache/thrift v0.24.0 // indirect
+	github.com/apache/thrift v0.25.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/buger/jsonparser v1.6.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
